@@ -239,8 +239,7 @@ compose(
 somthing.reduce(
   function (item, thing) {
     return thing.blah = item;
-  },
-  {},
+  }, {},
 );
 
 somthing.reduce(
@@ -270,8 +269,7 @@ func(
 func(
   () => {
     thing();
-  },
-  { yes: true, cats: 5 },
+  }, { yes: true, cats: 5 },
 );
 
 compose(

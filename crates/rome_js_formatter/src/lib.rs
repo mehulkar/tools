@@ -489,7 +489,12 @@ mod test {
     #[test]
     // use this test check if your snippet prints as you wish, without using a snapshot
     fn quick_test() {
-        let src = r#"if (true) {}"#;
+        let src = r#"beforeEach(async(() => {
+      // code
+    }), hey
+ );"#;
+        // let src = r#"useEffect(() => { hey; }, [1, 4])"#;
+
         let syntax = SourceType::tsx();
         let tree = parse(src, 0, syntax);
         let result = format_node(JsFormatContext::default(), &tree.syntax())

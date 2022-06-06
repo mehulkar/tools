@@ -12,6 +12,7 @@ pub mod stmt_ext;
 pub mod suppression;
 mod syntax_node;
 mod union_ext;
+mod parameters_ext;
 
 pub use self::generated::*;
 pub use expr_ext::*;
