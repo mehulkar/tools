@@ -291,6 +291,7 @@ impl<'a> Printer<'a> {
                     }
                 }
             }
+            FormatElement::Rc(content) => queue.enqueue(PrintElementCall::new(content, args)),
         }
     }
 
@@ -797,6 +798,7 @@ fn fits_element_on_line<'a, 'rest>(
                 return Fits::No;
             }
         }
+        FormatElement::Rc(content) => queue.enqueue(PrintElementCall::new(content, args)),
     }
 
     Fits::Maybe
