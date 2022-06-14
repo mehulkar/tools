@@ -1,4 +1,4 @@
-use rome_analyze::{ActionCategory, Rule, RuleCategory, RuleDiagnostic};
+use rome_analyze::{declare_rule, ActionCategory, Rule, RuleCategory, RuleDiagnostic};
 use rome_console::markup;
 use rome_diagnostics::Applicability;
 use rome_js_factory::make;
@@ -9,10 +9,27 @@ use rome_rowan::{AstNode, AstNodeExt};
 
 use crate::JsRuleAction;
 
-pub(crate) enum NoDebugger {}
+declare_rule! {
+    /// Disallow the use of the `delete` operator
+    ///
+    /// ## Examples
+    ///
+    /// ### Invalid {#invalid}
+    ///
+    /// ```js
+    /// debugger;
+    /// ```
+    ///
+    /// ### Valid {#valid}
+    ///
+    /// ```js
+    /// const test = { debugger: 1 };
+    /// test.debugger;
+    ///```
+    pub(crate) NoDebugger = "noDebugger"
+}
 
 impl Rule for NoDebugger {
-    const NAME: &'static str = "noDebugger";
     const CATEGORY: RuleCategory = RuleCategory::Lint;
 
     type Query = JsDebuggerStatement;

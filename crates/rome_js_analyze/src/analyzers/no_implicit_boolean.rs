@@ -1,4 +1,4 @@
-use rome_analyze::{ActionCategory, Rule, RuleCategory, RuleDiagnostic};
+use rome_analyze::{declare_rule, ActionCategory, Rule, RuleCategory, RuleDiagnostic};
 use rome_console::markup;
 use rome_diagnostics::Applicability;
 use rome_js_factory::make;
@@ -10,10 +10,42 @@ use rome_rowan::{AstNode, AstNodeExt};
 
 use crate::JsRuleAction;
 
-pub(crate) enum NoImplicitBoolean {}
+declare_rule! {
+    /// Disallow implicit `true` values on JSX boolean attributes
+    ///
+    /// ## Examples
+    ///
+    /// ### Invalid {#invalid}
+    ///
+    /// ```jsx
+    /// <input disabled />
+    /// ```
+    ///
+    /// ### Valid {#valid}
+    ///
+    /// ```jsx
+    /// <input disabled={false} />
+    ///```
+    ///
+    /// ```jsx
+    /// <input disabled={''} />
+    ///```
+    ///
+    /// ```jsx
+    /// <input disabled={0} />
+    ///```
+    ///
+    /// ```jsx
+    /// <input disabled={undefined} />
+    ///```
+    ///
+    /// ```jsx
+    /// <input disabled='false' />
+    ///```
+    pub(crate) NoImplicitBoolean = "noImplicitBoolean"
+}
 
 impl Rule for NoImplicitBoolean {
-    const NAME: &'static str = "noImplicitBoolean";
     const CATEGORY: RuleCategory = RuleCategory::Lint;
 
     type Query = JsxAttribute;

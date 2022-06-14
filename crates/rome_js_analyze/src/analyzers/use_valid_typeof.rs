@@ -14,6 +14,60 @@ declare_rule! {
     /// This rule verifies the result of `typeof $expr` unary expressions is being
     /// compared to valid values, either string literals containing valid type
     /// names or other `typeof` expressions
+    ///
+    /// ## Examples
+    ///
+    /// ### Invalid {#invalid}
+    ///
+    /// ```js
+    /// typeof foo === "strnig"
+    /// ```
+    ///
+    /// ```js
+    /// typeof foo == "undefimed"
+    /// ```
+    ///
+    /// ```js
+    /// typeof bar != "nunber"
+    /// ```
+    ///
+    /// ```js
+    /// typeof bar !== "fucntion"
+    /// ```
+    ///
+    /// ```js
+    /// typeof foo === undefined
+    /// ```
+    ///
+    /// ```js
+    /// typeof bar == Object
+    /// ```
+    ///
+    /// ```js
+    /// typeof foo === baz
+    /// ```
+    ///
+    /// ```js
+    /// typeof foo == 5
+    /// ```
+    ///
+    /// ```js
+    /// typeof foo == -5
+    /// ```
+    ///
+    /// ### Valid {#valid}
+    ///
+    /// ```js
+    /// typeof foo === "string"
+    /// ```
+    ///
+    /// ```js
+    /// typeof bar == "undefined"
+    /// ```
+    ///
+    /// ```js
+    /// typeof bar === typeof qux
+    /// ```
     pub(crate) UseValidTypeof = "useValidTypeof"
 }
 

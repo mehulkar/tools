@@ -11,6 +11,29 @@ use rome_rowan::{AstNode, AstNodeExt};
 use crate::JsRuleAction;
 
 declare_rule! {
+    /// Disallow negation in the condition of an `if` statement if it has an `else` clause
+    ///
+    /// ## Examples
+    ///
+    /// ### Invalid {#invalid}
+    ///
+    /// ```js
+    /// if (!true) {consequent;} else {alternate;}
+    /// ```
+    ///
+    /// ```js
+    /// !true ? consequent : alternate
+    ///```
+    ///
+    /// ### Valid {#valid}
+    ///
+    /// ```js
+    /// if (!true) {consequent;}
+    ///```
+    ///
+    /// ```js
+    /// true ? consequent : alternate
+    ///```
     pub(crate) NoNegationElse = "noNegationElse"
 }
 
